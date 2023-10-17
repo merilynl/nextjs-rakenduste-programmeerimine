@@ -4,6 +4,7 @@ import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 
 export const metadata = {
   title: "Create Next App",
@@ -25,23 +26,25 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
-        <main>
-          <nav>
-            <div>
-              {user ? (
-                <div>
-                  Hey, {user.email}!
-                  <LogoutButton />
-                </div>
-              ) : (
-                <Link href="/login">Login</Link>
-              )}
-            </div>
-          </nav>
-          {children}
-        </main>
-      </body>
+      <ThemeRegistry>
+        <body>
+          <main>
+            <nav>
+              <div>
+                {user ? (
+                  <div>
+                    Hey, {user.email}!
+                    <LogoutButton />
+                  </div>
+                ) : (
+                  <Link href="/login">Login</Link>
+                )}
+              </div>
+            </nav>
+            {children}
+          </main>
+        </body>
+      </ThemeRegistry>
     </html>
   );
 }
