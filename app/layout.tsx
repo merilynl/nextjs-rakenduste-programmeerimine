@@ -1,10 +1,11 @@
-import DeployButton from "@/components/DeployButton";
 import "./globals.css";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
+import Layout from "../layout/Layout";
+import Header from "../layout/Header";
 
 export const metadata = {
   title: "Create Next App",
@@ -17,6 +18,7 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
+  // user: React.ReactNode;
 }) {
   const supabase = createServerComponentClient({ cookies });
 
@@ -26,25 +28,25 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <ThemeRegistry>
-        <body>
-          <main>
-            <nav>
-              <div>
-                {user ? (
-                  <div>
-                    Hey, {user.email}!
-                    <LogoutButton />
-                  </div>
-                ) : (
-                  <Link href="/login">Login</Link>
-                )}
-              </div>
-            </nav>
-            {children}
-          </main>
-        </body>
-      </ThemeRegistry>
+      <body>
+        <ThemeRegistry>
+          {user ? (
+            <main>
+              <Header title="Kekw" />
+              <Layout>
+                <div>
+                  Hey, {user.email}!
+                  <LogoutButton />
+                </div>
+                <Link href="/Todo">Todos</Link>
+              </Layout>
+            </main>
+          ) : (
+            <Link href="/login">Login</Link>
+          )}
+          {children}
+        </ThemeRegistry>
+      </body>
     </html>
   );
 }

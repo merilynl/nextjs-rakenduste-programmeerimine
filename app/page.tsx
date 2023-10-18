@@ -1,10 +1,11 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import Link from "next/link";
+/* import Link from "next/link";
 import LogoutButton from "../components/LogoutButton";
 import SupabaseLogo from "../components/SupabaseLogo";
 import NextJsLogo from "../components/NextJsLogo";
-import DeployButton from "../components/DeployButton";
+import DeployButton from "../components/DeployButton"; */
+import Layout from "@/layout/Layout";
 
 export const dynamic = "force-dynamic";
 
@@ -42,9 +43,9 @@ const examples = [
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return <h1>Hi</h1>;
+  return (
+    <Layout>
+      <h1>TEST</h1>
+    </Layout>
+  );
 }
